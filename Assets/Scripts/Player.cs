@@ -10,24 +10,20 @@ public class Player : MonoBehaviour
     Vector3 direction;
     Rigidbody2D rb;
     [SerializeField] float moveSpeed = 1;
-    Vector3 Xmin;
-    Vector3 Xmax;
-    Vector3 Ymin;
-    Vector3 Ymax;
+    SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite shootSprite;
+    [SerializeField] Sprite idleSprite;
+    
+    
    
     // Start is called before the first frame update
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        SetScreenLimits();
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void SetScreenLimits()
-    {
-         
-    }
 
     // Update is called once per frame
     void Update()
@@ -35,6 +31,7 @@ public class Player : MonoBehaviour
 
         if(Input.touchCount > 0)
         {
+            ChangeSprite();
             Touch touch = Input.GetTouch(0);
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
             direction = (touchPosition - transform.position);
@@ -43,12 +40,14 @@ public class Player : MonoBehaviour
 
             if(touch.phase == TouchPhase.Ended)
             {
+                RevertSprite();
                 rb.velocity = Vector2.zero;
             }
         }
 
         if(Input.GetMouseButton(0))
         {
+            ChangeSprite();
             Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             clickPosition.z = transform.position.z;
             direction = (clickPosition - transform.position);
@@ -62,9 +61,25 @@ public class Player : MonoBehaviour
         }
         else
         {
+            RevertSprite();
             rb.velocity = Vector2.zero;
         }
+     
+    }
 
-        
+    void ChangeSprite()
+    {
+        for(int i=0; i<1; i++)
+        {
+            spriteRenderer.sprite = shootSprite;          
+        }  
+    }
+
+    void RevertSprite()
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            spriteRenderer.sprite = idleSprite;
+        }
     }
 }
