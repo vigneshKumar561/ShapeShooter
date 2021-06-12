@@ -13,9 +13,11 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     [SerializeField] Sprite shootSprite;
     [SerializeField] Sprite idleSprite;
-    
-    
-   
+    [SerializeField] GameObject laserPrefab;
+    [SerializeField] float fireRate = 0.5f;
+    float nextFire = 0;
+
+
     // Start is called before the first frame update
 
     void Start()
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             ChangeSprite();
+            Fire();
             Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             clickPosition.z = transform.position.z;
             direction = (clickPosition - transform.position);
@@ -65,6 +68,16 @@ public class Player : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
      
+    }
+    
+    void Fire()
+    {
+        if(Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(laserPrefab, transform.position + new Vector3(0, 1f, 0) , Quaternion.identity);         
+        }
+        
     }
 
     void ChangeSprite()
