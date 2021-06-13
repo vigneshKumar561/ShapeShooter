@@ -9,15 +9,21 @@ public class Player : MonoBehaviour
 
     Vector3 direction;
     Rigidbody2D rb;
-    [SerializeField] float moveSpeed = 1;
     SpriteRenderer spriteRenderer;
+
+    [Header("PlayerSettings")]
+
+    [SerializeField] float moveSpeed = 1;
     [SerializeField] Sprite shootSprite;
     [SerializeField] Sprite idleSprite;
+    public bool playerAlive;
+
+    [Header("LaserSettings")]
+
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float fireRate = 0.5f;
     float nextFire = 0;
-
-
+    
     // Start is called before the first frame update
 
     void Start()
@@ -94,5 +100,14 @@ public class Player : MonoBehaviour
         {
             spriteRenderer.sprite = idleSprite;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "EnemyLaser")
+        {
+            Destroy(gameObject);
+            playerAlive = false;
+        }    
     }
 }

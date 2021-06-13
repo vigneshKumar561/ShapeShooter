@@ -5,13 +5,14 @@ using UnityEngine;
 public class Enemy_1_Eye : MonoBehaviour
 {
     Vector3 direction;
-    [SerializeField] GameObject player;
+    GameObject player;
     [SerializeField] float moveSpeed = 1;
     Rigidbody2D rb;
     
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<Player>().gameObject;
         rb = GetComponent<Rigidbody2D>();
     }
 

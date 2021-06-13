@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6369551189695715299}
   - component: {fileID: 6369551189695715297}
   - component: {fileID: 1811107085}
-  - component: {fileID: 4583076669110560503}
-  - component: {fileID: 5949748130245092507}
+  - component: {fileID: -3072160448649693349}
+  - component: {fileID: 4586036173734521055}
   m_Layer: 8
-  m_Name: Enemy_1
+  m_Name: Enemy_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ada606bd7f7cd3242a6bb07f1021a3ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9908fbc1f2f596146bccac8cd5afa694, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c230f3656a8254d98d4610b69d76f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4583076669110560503
+--- !u!114 &-3072160448649693349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,13 +133,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe5408df0c477da498580b6d66c07ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 200
   shotCounter: 0
-  minTimeBetweenShots: 0.5
-  maxTimeBetweenShots: 3
+  minTimeBetweenShots: 0.3
+  maxTimeBetweenShots: 2.5
   enemyLaser_1: {fileID: 6786498103507451263, guid: 4852615af0aa22040b7a3cd447a8ed6f, type: 3}
   deathVFX: {fileID: 7861956015141754133, guid: 50e4cb10eb5ea404cb35b18efc6bfab8, type: 3}
---- !u!58 &5949748130245092507
+--- !u!58 &4586036173734521055
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,9 +152,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.011746962, y: 0.039156497}
+  m_Offset: {x: 0, y: 0.25843397}
   serializedVersion: 2
-  m_Radius: 0.6574092
+  m_Radius: 0.7631316
 --- !u!1001 &6369551188837906131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957849, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25554797
+      value: 0.209
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957849, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_LocalPosition.z
@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957852, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_Distance
-      value: 0.051927086
+      value: 0.06813515
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957852, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_MaxDistanceOnly
@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957849, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25554797
+      value: 0.20899977
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957849, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_LocalPosition.z
@@ -342,7 +342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957852, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_Distance
-      value: 0.0455615
+      value: 0.060377076
       objectReference: {fileID: 0}
     - target: {fileID: 3572383909912957852, guid: d2602bf9b9acdcb40b2cb12f89b98137, type: 3}
       propertyPath: m_ConnectedAnchor.x
