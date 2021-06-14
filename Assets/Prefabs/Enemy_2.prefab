@@ -134,6 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 200
+  deathClip: {fileID: 8300000, guid: 8ae250da9c952ac42a930318b3b127f8, type: 3}
+  deathClipVolume: 0.2
   shotCounter: 0
   minTimeBetweenShots: 0.3
   maxTimeBetweenShots: 2.5
