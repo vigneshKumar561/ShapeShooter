@@ -18,18 +18,21 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return StartCoroutine(SpawnAllWaves());
         }
-        while (looping && sceneManager.gameStarted == true);
+        while (looping);
                  
     }
 
     private IEnumerator SpawnAllWaves()
     {
-        
-        for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++)
+        if(sceneManager.gameStarted == true)
         {
-            var currentWave = waveConfigs[waveIndex];
-            yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
-        }   
+            for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++)
+            {
+                var currentWave = waveConfigs[waveIndex];
+                yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+            }
+        }
+        
     }
 
     private IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)

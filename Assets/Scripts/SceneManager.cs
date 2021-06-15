@@ -9,6 +9,7 @@ public class SceneManager : MonoBehaviour
     public bool gameStarted;
     public bool playerDied;
     [SerializeField] Player player;
+    [SerializeField] ScoreManager scoreManager;
     // Start is called before the first frame update
     public void StartGame()
     {
@@ -20,6 +21,7 @@ public class SceneManager : MonoBehaviour
         canvasAnimator.SetTrigger("StartGame");
         yield return new WaitForSeconds(0.6f);
         gameStarted = true;
+        scoreManager.DisplayScore();
     }
 
     public void PlayAgain()
@@ -33,7 +35,9 @@ public class SceneManager : MonoBehaviour
         player.RevivePlayer();
         yield return new WaitForSeconds(1f);
         playerDied = false;
-        gameStarted = true;      
+        gameStarted = true;
+        scoreManager.ResetScore();
+        scoreManager.DisplayScore();
     }
 
     public void QuitGame()

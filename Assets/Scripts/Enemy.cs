@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] AudioClip deathClip;
     [SerializeField] [Range(0, 1)] float deathClipVolume = 0.75f;
     SceneManager sceneManager;
+    
 
     [Header("EnemyShooting")]
 
@@ -19,30 +20,40 @@ public class Enemy : MonoBehaviour
     [SerializeField] float maxTimeBetweenShots = 3f;
     [SerializeField] GameObject enemyLaser_1;
     [SerializeField] GameObject deathVFX;
-   
+
+    [Header("Score")]
+
+    ScoreManager scoreManager;
+    [SerializeField] int scoreValue;
+
 
     // Start is called before the first frame update
     void Start()
     {
         sceneManager = FindObjectOfType<SceneManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
         shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     }
 
     // Update is called once per frame
     void Update()
     {
-        shotCounter -= Time.deltaTime;
-
-        if(shotCounter <= 0 && sceneManager.gameStarted == true)
+        if(sceneManager.gameStarted == true)
         {
-            if(sceneManager.playerDied == false)
+            shotCounter -= Time.deltaTime;
+
+            if (shotCounter <= 0)
             {
-                Fire();
+                if (sceneManager.playerDied == false)
+                {
+                    Fire();
+                }
+
+                shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
+
             }
-           
-            shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
-                      
         }
+        
     }
 
     private void Fire()
@@ -62,6 +73,7 @@ public class Enemy : MonoBehaviour
 
     private void InitiateEnemyDeath()
     {
+        scoreManager.AddToScore(scoreValue);
         PlaydeathSound();
         Destroy(gameObject);
         CreatedeathVFX();

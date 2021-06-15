@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] Animator gameOverAnimator;
     Vector2 initialPos;
     [SerializeField] Transform tempPos;
+    [SerializeField] ScoreManager scoreManager;
 
     [Header("PlayerSettings")]
 
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] Sprite shootSprite;
     [SerializeField] Sprite idleSprite;
     [SerializeField] AudioClip deathClip;
-    [SerializeField] [Range(0, 10)] float deathClipVolume = 2f;
+    [SerializeField] [Range(0, 1)] float deathClipVolume;
     [SerializeField] bool godMode;
     
 
@@ -138,17 +139,17 @@ public class Player : MonoBehaviour
         gameOverAnimator.SetTrigger("GameOver");
         //Destroy(gameObject);
         transform.position = tempPos.position;
-        //rb.isKinematic = true;
+        rb.velocity = new Vector2(0, 0);
+        scoreManager.HideScore();
     }
 
     private void PlayDeathSound()
     {
-        AudioSource.PlayClipAtPoint(deathClip, Camera.main.transform.position, shootClipVolume);
+        AudioSource.PlayClipAtPoint(deathClip, Camera.main.transform.position, deathClipVolume);
     }
 
     public void RevivePlayer()
     {
-        //rb.isKinematic = false;
         transform.position = initialPos;     
     }
 }
