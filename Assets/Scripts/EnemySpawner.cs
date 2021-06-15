@@ -8,16 +8,18 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<WaveConfig> waveConfigs;
     int startingWave = 0;
     [SerializeField] bool looping;
+    [SerializeField] SceneManager sceneManager;
 
     // Start is called before the first frame update
     IEnumerator Start()
     {
+       
         do
         {
             yield return StartCoroutine(SpawnAllWaves());
         }
-        while (looping);
-        
+        while (looping && sceneManager.gameStarted == true);
+                 
     }
 
     private IEnumerator SpawnAllWaves()
@@ -27,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         {
             var currentWave = waveConfigs[waveIndex];
             yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
-        }
+        }   
     }
 
     private IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)

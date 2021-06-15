@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     Vector3 direction;
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
+    [SerializeField] SceneManager sceneManager;
+    [SerializeField] Animator gameOverAnimator;
+    Vector2 initialPos;
+    [SerializeField] Transform tempPos;
 
     [Header("PlayerSettings")]
 
@@ -17,8 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField] Sprite shootSprite;
     [SerializeField] Sprite idleSprite;
     [SerializeField] AudioClip deathClip;
-    [SerializeField] [Range(0, 1)] float deathClipVolume = 0.75f;
-    public bool playerAlive;
+    [SerializeField] [Range(0, 10)] float deathClipVolume = 2f;
+    [SerializeField] bool godMode;
+    
 
     [Header("LaserSettings")]
 
@@ -32,53 +37,55 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        initialPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();       
     }
 
 
     // Update is called once per frame
     void Update()
     {
-
-        if(Input.touchCount > 0)
+        if(sceneManager.gameStarted == true)
         {
-            ChangeSprite();
-            Fire();
-            Touch touch = Input.GetTouch(0);
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            direction = (touchPosition - transform.position);
-            direction.z = 0;
-            rb.velocity = new Vector2(direction.x, direction.y) * moveSpeed;
+            if (Input.touchCount > 0)
+            {
+                ChangeSprite();
+                Fire();
+                Touch touch = Input.GetTouch(0);
+                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                direction = (touchPosition - transform.position);
+                direction.z = 0;
+                rb.velocity = new Vector2(direction.x, direction.y) * moveSpeed;
 
-            if(touch.phase == TouchPhase.Ended)
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    RevertSprite();
+                    rb.velocity = Vector2.zero;
+                }
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                ChangeSprite();
+                Fire();
+                Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                clickPosition.z = transform.position.z;
+                direction = (clickPosition - transform.position);
+                direction.z = 0;
+                rb.velocity = (new Vector2(direction.x, direction.y) * moveSpeed);
+
+                /*if(!Input.GetMouseButton(0))
+                {
+                    rb.velocity = Vector2.zero;
+                }*/
+            }
+            else
             {
                 RevertSprite();
                 rb.velocity = Vector2.zero;
             }
-        }
-
-        if(Input.GetMouseButton(0))
-        {
-            ChangeSprite();
-            Fire();
-            Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            clickPosition.z = transform.position.z;
-            direction = (clickPosition - transform.position);
-            direction.z = 0;
-            rb.velocity = (new Vector2(direction.x, direction.y) * moveSpeed);
-
-            /*if(!Input.GetMouseButton(0))
-            {
-                rb.velocity = Vector2.zero;
-            }*/
-        }
-        else
-        {
-            RevertSprite();
-            rb.velocity = Vector2.zero;
-        }
-     
+        }     
     }
     
     void Fire()
@@ -116,19 +123,32 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "EnemyLaser")
         {
-            Die();
+            if(!godMode)
+            {
+                Die();
+            }   
         }
     }
 
     private void Die()
-    { 
-        Destroy(gameObject);
+    {
         PlayDeathSound();
-        playerAlive = false;
+        sceneManager.playerDied = true;
+        sceneManager.gameStarted = false;
+        gameOverAnimator.SetTrigger("GameOver");
+        //Destroy(gameObject);
+        transform.position = tempPos.position;
+        //rb.isKinematic = true;
     }
 
     private void PlayDeathSound()
     {
         AudioSource.PlayClipAtPoint(deathClip, Camera.main.transform.position, shootClipVolume);
+    }
+
+    public void RevivePlayer()
+    {
+        //rb.isKinematic = false;
+        transform.position = initialPos;     
     }
 }

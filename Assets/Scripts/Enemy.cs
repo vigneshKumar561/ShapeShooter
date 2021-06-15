@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float health = 100;
     [SerializeField] AudioClip deathClip;
     [SerializeField] [Range(0, 1)] float deathClipVolume = 0.75f;
+    SceneManager sceneManager;
 
     [Header("EnemyShooting")]
 
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sceneManager = FindObjectOfType<SceneManager>();
         shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     }
 
@@ -31,16 +33,21 @@ public class Enemy : MonoBehaviour
     {
         shotCounter -= Time.deltaTime;
 
-        if(shotCounter <= 0)
+        if(shotCounter <= 0 && sceneManager.gameStarted == true)
         {
-            Fire();
+            if(sceneManager.playerDied == false)
+            {
+                Fire();
+            }
+           
             shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
+                      
         }
     }
 
     private void Fire()
-    {
-        Instantiate(enemyLaser_1, transform.position, Quaternion.identity);
+    {        
+        Instantiate(enemyLaser_1, transform.position, Quaternion.identity);    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
