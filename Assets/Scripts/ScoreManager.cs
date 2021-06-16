@@ -8,14 +8,18 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI mainScoreText;
     [SerializeField] Animator mainScoreFadeIn;
-    [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] TextMeshProUGUI GameOverhighScoreText;
+    [SerializeField] TextMeshProUGUI mainMenuHighScore;
     int highScoreValue;
     public int score;
 
     // Start is called before the first frame update
     void Start()
     {
-        mainScoreText.text = "0";  
+        score = 0;
+        highScoreValue = SaveSystem.LoadGame().score;
+        GameOverhighScoreText.text = highScoreValue.ToString();
+        mainMenuHighScore.text = highScoreValue.ToString();
     }
 
     public void DisplayScore()
@@ -31,19 +35,26 @@ public class ScoreManager : MonoBehaviour
     public void ResetScore()
     {
         mainScoreText.text = "0";
+        score = 0;
     }
 
     // Update is called once per frame
     public void AddToScore(int scoreValue)
     {
-        score += scoreValue;
-        score += highScoreValue;
+        score += scoreValue;       
         mainScoreText.text = score.ToString();
-        UpdateHighScore();
+        if(score > highScoreValue)
+        {
+            GameOverhighScoreText.text = score.ToString();
+            mainMenuHighScore.text = score.ToString();
+        }
     }
 
-    void UpdateHighScore()
+    public void SaveScore()
     {
-        highScoreText.text = score.ToString();
+        if(score > highScoreValue)
+        {
+            SaveSystem.SaveGame(this);
+        }           
     }
 }

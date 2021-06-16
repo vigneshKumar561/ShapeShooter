@@ -7,15 +7,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SaveGame(ScoreManager scoreManager )
+    public static void SaveGame(ScoreManager scoreManager)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
         string path = Application.persistentDataPath + "/score.vik";
-
+        
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        ScoreData data = new ScoreData(scoreManager);
+        ScoreData data = new ScoreData(scoreManager);               
 
         formatter.Serialize(stream, data);
 
@@ -24,10 +24,10 @@ public static class SaveSystem
 
     public static ScoreData LoadGame()
     {
-        
-        string path = Application.persistentDataPath + "/score.vik";
 
-        if(File.Exists(path))
+        string path = Application.persistentDataPath + "/score.vik";
+        
+        if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
 

@@ -141,7 +141,7 @@ MonoBehaviour:
   maxTimeBetweenShots: 2.5
   enemyLaser_1: {fileID: 6786498103507451263, guid: 4852615af0aa22040b7a3cd447a8ed6f, type: 3}
   deathVFX: {fileID: 7861956015141754133, guid: 50e4cb10eb5ea404cb35b18efc6bfab8, type: 3}
-  scoreValue: 10
+  scoreValue: 1
 --- !u!58 &4586036173734521055
 CircleCollider2D:
   m_ObjectHideFlags: 0

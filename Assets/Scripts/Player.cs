@@ -141,6 +141,7 @@ public class Player : MonoBehaviour
         transform.position = tempPos.position;
         rb.velocity = new Vector2(0, 0);
         scoreManager.HideScore();
+        scoreManager.SaveScore();
     }
 
     private void PlayDeathSound()
