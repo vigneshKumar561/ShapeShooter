@@ -18,3 +18,4 @@ MonoBehaviour:
   spawnRandomFactor: 0.3
   numberOfEnemies: 5
   moveSpeed: 3
+  waveDelay: 2

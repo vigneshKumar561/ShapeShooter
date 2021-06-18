@@ -43,4 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da714eab938bff9499d12dbb26271030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasAnimator: {fileID: 0}
   gameStarted: 0
+  playerDied: 0
+  player: {fileID: 0}
+  scoreManager: {fileID: 0}

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class SceneManager : MonoBehaviour
 {
@@ -10,18 +13,28 @@ public class SceneManager : MonoBehaviour
     public bool playerDied;
     [SerializeField] Player player;
     [SerializeField] ScoreManager scoreManager;
+    [SerializeField] GameObject pauseMenu;
+    InGameUI inGameUI;
+
+
     // Start is called before the first frame update
+
+    private void Start()
+    {
+        inGameUI = FindObjectOfType<InGameUI>();
+    }
+
     public void StartGame()
     {
-        StartCoroutine(LaunchGame());    
+        StartCoroutine(LaunchGame());
     }
 
     IEnumerator LaunchGame()
-    {        
+    {
         canvasAnimator.SetTrigger("StartGame");
         yield return new WaitForSeconds(0.6f);
         gameStarted = true;
-        scoreManager.DisplayScore();
+        inGameUI.FadeINScore();
     }
 
     public void PlayAgain()
@@ -37,8 +50,37 @@ public class SceneManager : MonoBehaviour
         playerDied = false;
         gameStarted = true;
         scoreManager.ResetScore();
-        scoreManager.DisplayScore();
+        inGameUI.FadeINScore();
     }
+
+    public void PauseGame()
+    {
+        
+        if (Time.timeScale == 1)
+        {
+            pauseMenu.SetActive(true);
+            pauseMenu.GetComponent<CanvasGroup>().DOFade(1, 1);
+            inGameUI.FadeOutScore();
+            Time.timeScale = 0;               
+        }
+         else
+        {
+            pauseMenu.GetComponent<CanvasGroup>().DOFade(0, 1);
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1;           
+        }
+                
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenu.GetComponent<CanvasGroup>().DOFade(0, 1);
+        pauseMenu.SetActive(false);
+        inGameUI.FadeINScore();
+        Time.timeScale = 1;
+    }
+
+    
 
     public void QuitGame()
     {

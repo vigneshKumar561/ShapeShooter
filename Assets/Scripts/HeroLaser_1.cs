@@ -17,4 +17,13 @@ public class HeroLaser_1 : MonoBehaviour
     {
         transform.Translate(Vector3.up * Time.deltaTime * laserSpeed);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+        
+    }
 }

@@ -7,9 +7,9 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI mainScoreText;
-    [SerializeField] Animator mainScoreFadeIn;
-    [SerializeField] TextMeshProUGUI GameOverhighScoreText;
+    [SerializeField] TextMeshProUGUI GameOverHighScoreText;
     [SerializeField] TextMeshProUGUI mainMenuHighScore;
+    [SerializeField] TextMeshProUGUI pauseMenuHighScore;
     int highScoreValue;
     public int score;
 
@@ -18,19 +18,11 @@ public class ScoreManager : MonoBehaviour
     {
         score = 0;
         highScoreValue = SaveSystem.LoadGame().score;
-        GameOverhighScoreText.text = highScoreValue.ToString();
+        GameOverHighScoreText.text = highScoreValue.ToString();
         mainMenuHighScore.text = highScoreValue.ToString();
+        pauseMenuHighScore.text = highScoreValue.ToString();
     }
 
-    public void DisplayScore()
-    {
-        mainScoreFadeIn.SetTrigger("GameStarted");
-    }
-
-    public void HideScore()
-    {
-        mainScoreFadeIn.SetTrigger("GameOver");
-    }
 
     public void ResetScore()
     {
@@ -43,10 +35,12 @@ public class ScoreManager : MonoBehaviour
     {
         score += scoreValue;       
         mainScoreText.text = score.ToString();
+
         if(score > highScoreValue)
         {
-            GameOverhighScoreText.text = score.ToString();
+            GameOverHighScoreText.text = score.ToString();
             mainMenuHighScore.text = score.ToString();
+            pauseMenuHighScore.text = score.ToString();
         }
     }
 

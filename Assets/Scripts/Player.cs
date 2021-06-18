@@ -2,21 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class Player : MonoBehaviour
 {
-
-    Vector3 direction;
-    Rigidbody2D rb;
-    SpriteRenderer spriteRenderer;
+    [Header("GENERAL SETTINGS")]
+     
     [SerializeField] SceneManager sceneManager;
-    [SerializeField] Animator gameOverAnimator;
-    Vector2 initialPos;
+    [SerializeField] Animator gameOverAnimator;  
     [SerializeField] Transform tempPos;
     [SerializeField] ScoreManager scoreManager;
+    InGameUI inGameUI;
+    Vector3 direction;
+    Rigidbody2D rb;
+    Vector2 initialPos;
+    SpriteRenderer spriteRenderer;
 
-    [Header("PlayerSettings")]
+    [Header("PLAYER SETTINGS")]
 
     [SerializeField] float moveSpeed = 1;
     [SerializeField] Sprite shootSprite;
@@ -24,9 +27,9 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip deathClip;
     [SerializeField] [Range(0, 1)] float deathClipVolume;
     [SerializeField] bool godMode;
-    
 
-    [Header("LaserSettings")]
+
+    [Header("LASER SETTINGS")]
 
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float fireRate = 0.5f;
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        inGameUI = FindObjectOfType<InGameUI>();
         initialPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();       
@@ -51,13 +55,21 @@ public class Player : MonoBehaviour
         {
             if (Input.touchCount > 0)
             {
-                ChangeSprite();
-                Fire();
                 Touch touch = Input.GetTouch(0);
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                direction = (touchPosition - transform.position);
-                direction.z = 0;
-                rb.velocity = new Vector2(direction.x, direction.y) * moveSpeed;
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+
+                }
+                else
+                {
+                    ChangeSprite();
+                    Fire();                   
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    direction = (touchPosition - transform.position);
+                    direction.z = 0;
+                    rb.velocity = new Vector2(direction.x, direction.y) * moveSpeed;
+                }
+                
 
                 if (touch.phase == TouchPhase.Ended)
                 {
@@ -68,18 +80,25 @@ public class Player : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                ChangeSprite();
-                Fire();
-                Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                clickPosition.z = transform.position.z;
-                direction = (clickPosition - transform.position);
-                direction.z = 0;
-                rb.velocity = (new Vector2(direction.x, direction.y) * moveSpeed);
-
-                /*if(!Input.GetMouseButton(0))
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    
+                }
+                else
+                {
+                    ChangeSprite();
+                    Fire();
+                    Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    clickPosition.z = transform.position.z;
+                    direction = (clickPosition - transform.position);
+                    direction.z = 0;
+                    rb.velocity = (new Vector2(direction.x, direction.y) * moveSpeed);
+                    /*if(!Input.GetMouseButton(0))
                 {
                     rb.velocity = Vector2.zero;
                 }*/
+                }
+
             }
             else
             {
@@ -140,7 +159,7 @@ public class Player : MonoBehaviour
         //Destroy(gameObject);
         transform.position = tempPos.position;
         rb.velocity = new Vector2(0, 0);
-        scoreManager.HideScore();
+        inGameUI.FadeOutScore();
         scoreManager.SaveScore();
     }
 

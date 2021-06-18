@@ -9,17 +9,21 @@ public class Enemy : MonoBehaviour
     [SerializeField] float health = 100;
     [SerializeField] AudioClip deathClip;
     [SerializeField] [Range(0, 1)] float deathClipVolume = 0.75f;
+    [SerializeField] bool canRotate = false;
+    [SerializeField] float rotationSpeed;
+    [SerializeField] GameObject deathVFX;
     SceneManager sceneManager;
     
 
     [Header("EnemyShooting")]
 
-
+    [SerializeField] bool canFire = true;
+    [SerializeField] bool canMultiFire = false;
     [SerializeField] float shotCounter;
     [SerializeField] float minTimeBetweenShots = 0.5f;
     [SerializeField] float maxTimeBetweenShots = 3f;
     [SerializeField] GameObject enemyLaser_1;
-    [SerializeField] GameObject deathVFX;
+    
 
     [Header("Score")]
 
@@ -44,21 +48,42 @@ public class Enemy : MonoBehaviour
 
             if (shotCounter <= 0)
             {
-                if (sceneManager.playerDied == false)
+                if (sceneManager.playerDied == false && canFire == true)
                 {
                     Fire();
+                }
+
+                if (sceneManager.playerDied == false && canMultiFire == true)
+                {
+                    MultiFire();
                 }
 
                 shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
 
             }
         }
+
+        if(canRotate)
+        {
+           transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        }
         
+    }
+
+    private void MultiFire()
+    {
+        foreach(Transform child in this.transform)
+        {
+            if(child.gameObject.tag == "MultiGun")
+            {
+                Instantiate(enemyLaser_1, child.transform.position, child.transform.localRotation);           
+            }
+        }
     }
 
     private void Fire()
     {        
-        Instantiate(enemyLaser_1, transform.position, Quaternion.identity);    
+        Instantiate(enemyLaser_1, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

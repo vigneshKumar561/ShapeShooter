@@ -6,6 +6,8 @@ TagManager:
   tags:
   - HeroLaser
   - EnemyLaser
+  - MultiGun
+  - Enemy
   layers:
   - Default
   - TransparentFX

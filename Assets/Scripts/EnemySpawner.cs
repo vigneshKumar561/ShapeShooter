@@ -29,7 +29,10 @@ public class EnemySpawner : MonoBehaviour
             for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++)
             {
                 var currentWave = waveConfigs[waveIndex];
-                yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+
+                StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+
+                yield return new WaitForSeconds(currentWave.GetWaveDelay());  
             }
         }
         
@@ -37,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)
     {
-        for(int enemyCount = 0; enemyCount <= waveConfig.GetNumberOfEnemies(); enemyCount++)
+        for(int enemyCount = 0; enemyCount <= waveConfig.GetNumberOfEnemies() -1 ; enemyCount++)
         {
             var newEnemy = Instantiate(waveConfig.GetEnemyPrefab(), waveConfig.GetWaypoints()[0].transform.position, Quaternion.identity);
 

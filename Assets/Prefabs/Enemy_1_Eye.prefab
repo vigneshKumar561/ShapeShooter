@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3572383909912957853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.497, y: 3.27, z: 0}
-  m_LocalScale: {x: 0.060617838, y: 0.060617838, z: 0.060617838}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -116,14 +116,14 @@ DistanceJoint2D:
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 6369551189695715297, guid: 85a588479b2ad2c4387c08c4a75698fa, type: 3}
+  m_ConnectedRigidBody: {fileID: 6369551189695715297, guid: 6e6f64d9bd4223744965c63f87e73615, type: 3}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.46623358, y: 0.34827086}
+  m_ConnectedAnchor: {x: 0.35434175, y: 0.22206672}
   m_AutoConfigureDistance: 1
-  m_Distance: 0.053187314
+  m_Distance: 0.04
   m_MaxDistanceOnly: 0
 --- !u!114 &3599838834140000825
 MonoBehaviour:

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4586036173734521055}
   m_Layer: 8
   m_Name: Enemy_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,11 +136,15 @@ MonoBehaviour:
   health: 200
   deathClip: {fileID: 8300000, guid: 8ae250da9c952ac42a930318b3b127f8, type: 3}
   deathClipVolume: 0.2
+  canRotate: 0
+  rotationSpeed: 0
+  deathVFX: {fileID: 7861956015141754133, guid: 50e4cb10eb5ea404cb35b18efc6bfab8, type: 3}
+  canFire: 1
+  canMultiFire: 0
   shotCounter: 0
   minTimeBetweenShots: 0.8
   maxTimeBetweenShots: 2.5
   enemyLaser_1: {fileID: 6786498103507451263, guid: 4852615af0aa22040b7a3cd447a8ed6f, type: 3}
-  deathVFX: {fileID: 7861956015141754133, guid: 50e4cb10eb5ea404cb35b18efc6bfab8, type: 3}
   scoreValue: 1
 --- !u!58 &4586036173734521055
 CircleCollider2D:
