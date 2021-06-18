@@ -1417,17 +1417,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2551303206838022676, guid: 4bace7ec571f949428138f8f1bfed0e8, type: 3}
-      propertyPath: godMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2551303206838022676, guid: 4bace7ec571f949428138f8f1bfed0e8, type: 3}
       propertyPath: tempPos
       value: 
       objectReference: {fileID: 1015534320}
-    - target: {fileID: 2551303206838022676, guid: 4bace7ec571f949428138f8f1bfed0e8, type: 3}
-      propertyPath: moveSpeed
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 2551303206838022676, guid: 4bace7ec571f949428138f8f1bfed0e8, type: 3}
       propertyPath: sceneManager
       value: 

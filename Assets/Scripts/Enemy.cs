@@ -94,6 +94,7 @@ public class Enemy : MonoBehaviour
         {
             InitiateEnemyDeath();
         }
+      
     }
 
     private void InitiateEnemyDeath()
